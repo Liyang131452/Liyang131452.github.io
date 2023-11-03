@@ -374,5 +374,68 @@ public long toNanos();
 
 &emsp;&emsp;用于操作数组的一个工具类。
 
-未完待续~~。
+```java
+//常见方法
+//1.返回数组的内容
+public static String toString(类型[] arr);
+//2.拷贝数组(指定范围，包前不包后)
+public static <T> T[] copyOfRange(T[] original, int from, int to);
+//3.拷贝数组,若被拷贝的数组数据不够，其余由null补充
+public static <T> T[] copyOf(T[] original, int newLength);
+//4.使用提供的生成函数来计算每个元素，设置指定数组的所有元素。
+public static <T> void setAll(T[] array, IntFunction<? extends T> generator);
+public static void setAll(double[] array, IntToDoubleFunction generator);
+//5.对数据进行排序(默认升序排序)
+public static void sort(T[] arr);
+```
 
+### 实现两个对象的比较
+
+#### 方法一：
+
+&emsp;&emsp;让该对象的类实现Comparable接口(比较规则)，然后重写compareTo方法，自己来指定比较规则。
+
+在compareTo中的约定：
+
+1.认为左边对象 **大于** 右边对象，返回**正整数**。
+
+2.认为左边对象 **小于** 右边对象，返回**负整数**。
+
+3.认为左边对象 **等于** 右边对象，一定返回**零**。
+
+#### 方法二：
+
+&emsp;&emsp;使用下面这个sort方法，创建Comparator比较器接口的匿名内部类对象，然后自己制定比较规则。**自己制定比较规则时，约定和compareTo中约定一样。**
+
+```java
+//对数组进行排序
+public static <T> void sort(T[] arr, Comparator <? super T> c);
+```
+
+## Lambda & 方法引用
+
+### Lambda
+
+1.Lambda表达式被**用于简化函数式接口的匿名内部类**。
+
+2.函数式接口：有且仅有一个抽象方法的接口。
+
+3.Lambda省略规则：
+
+&emsp;&emsp;3.1.参数类型可以省略不写；
+
+&emsp;&emsp;3.2.如果只有一个参数，参数类型可以省略，同时 **()** 也可以省略。
+
+&emsp;&emsp;3.3.如果Lambda表达式中的方法体代码只有一行代码，可以省略大括号不写，同时要省略封号。此时如果这行代码是 return 语句，也必须去掉 return 不写。
+
+### 方法引用
+
+&emsp;&emsp;用于进一步简化Lambda表达式。
+
+1.静态方法引用：如果某个Lambda表达式里只调用一个静态方法，并且前后参数一致，就可以使用静态方法引用。
+
+2.实例方法引用：如果某个Lambda表达式里只调用一个实例方法，并且前后参数一致，就可以使用实例方法引用。
+
+**3.特定类型的方法引用**：如果某个Lambda表达式里只是调用一个实例方法，如果第一个参数列表中的形参中的第一个参数作为了后面的方法的调用者，并且其余参数作为后面方法的形参，则此时就可以使用特定类型的方法引用。
+
+4.构造器引用：如果某个Lambda表达式里只是在创建对象，并且前后参数一致，就能使用构造器引用。
