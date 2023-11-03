@@ -12,7 +12,13 @@ tags:
 pin: true
 ---
 
-## commonJavaAPI 
+
+
+## 前言：
+
+&emsp;&emsp;这是一篇关于自学Java的杂记。如有问题或者不对，请给我发邮件，我进行更正。邮箱：bryceyangli@gmail.com
+
+## commons
 
 ### 1.Objects类中常用方法
 
@@ -283,9 +289,90 @@ LocalDateTime ldt = LocalDateTime.now();
 */
 ```
 
-#### ZoneId &ZoneDateTime
+#### ZoneId & ZoneDateTime
 
 &emsp;&emsp;JDK8后新增加的，ZoneId：时区；ZoneDateTime：带时区的时间。
 
+```java
+//1.获取Java支持的全部时区ID
+public static Set<String> getAvailableZoneIds();
+//2.把某个时区ID封装成ZoneId对象
+public static ZoneId of(String ZoneId);
+//3.获取系统默认时区
+public static ZoneId systemDefault();
+```
 
+#### Instant
+
+&emsp;&emsp;时间线上的某个 时刻 / 时间戳 。用于替代Date。
+
+```java
+//1.获取当前时间的Instant对象(标准时间)
+public static Instant now();
+//2.获取从1970年1月1日0分0秒开始记录的秒数
+public long getEpochSecond();
+//3.从时间线开始，获取从第二个开始的纳秒数
+public int getNano();
+//4.作为参数传递的秒/纳秒/毫秒值添加到此瞬时，并将结果作为瞬时对象返回。且此返回的Instant是不可变的。
+public Instant plusSeconds(long secondsToAdd);
+public Instant plusNanos(long nanosToAdd);
+public Instant plusMillis(long millisToAdd);
+//5.将此Instant与作为参数传递的Instant对象进行比较,如果两个实例相等，则返回true。
+public boolean equals(Object otherInstant);
+//6.检查此瞬间是否在指定瞬间之前。如果此时刻在指定时刻之前，则返回true。
+public boolean isBefore(Instant otherInstant);
+//7.检查此瞬间是否在指定瞬间之后。如果此时刻在指定时刻之后，则返回true。
+public boolean isAfter(Instant otherInstant);
+```
+
+#### DateTimeFormatt
+
+&emsp;&emsp;格式化器，用于时间格式化解析。**新增原因：SimpleDateFormat线程不安全。**
+
+```java
+//1.获取格式化器对象
+public static DateTimeFormatter ofPattern(时间格式);
+//2.格式化时间
+public String format(时间对象);
+```
+
+#### Period & Duration
+
+&emsp;&emsp;Period：计算日期间隔；用于计算两个LocalDate对象相差的年、月、日数。
+
+```java
+//1.传入两个日期对象，得到Period对象
+public static Period between(LocalDate start, LocalDate end);
+//2.计算并返回相隔几年
+public int getYears();
+//3.计算并返回相隔几月
+public int getMonths();
+//4.计算并返回相隔几日
+public int getDays();
+```
+
+&emsp;&emsp;Duration：计算时间间隔; 用于计算两个时间对象相差天、小时、分、秒、纳秒数；支持LocalTime、LocalDateTime、Instant等时间。
+
+```java
+//1.传入两个时间对象，得到Duration对象
+public static Duration between(开始时间对象，截止时间对象);
+//2.计算并返回相隔 天 数
+public long toDays();
+//3.计算并返回相隔 小时 数
+public long toHours();
+//4.计算并返回相隔 分钟 数
+public long toMinutes();
+//5.计算并返回相隔 秒 数
+public long toSeconds();
+//6.计算并返回相隔 毫秒 数
+public long toMillis();
+//7.计算并返回相隔 纳秒 数
+public long toNanos();
+```
+
+## Arrays类
+
+&emsp;&emsp;用于操作数组的一个工具类。
+
+未完待续~~。
 
