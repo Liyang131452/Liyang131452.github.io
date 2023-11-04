@@ -439,3 +439,116 @@ public static <T> void sort(T[] arr, Comparator <? super T> c);
 **3.特定类型的方法引用**：如果某个Lambda表达式里只是调用一个实例方法，如果第一个参数列表中的形参中的第一个参数作为了后面的方法的调用者，并且其余参数作为后面方法的形参，则此时就可以使用特定类型的方法引用。
 
 4.构造器引用：如果某个Lambda表达式里只是在创建对象，并且前后参数一致，就能使用构造器引用。
+
+## 正则表达式
+
+&emsp;&emsp;作用1：用来校验数据格式是否合法。
+
+&emsp;&emsp;作用2：在一段文本中查找满足要求的内容。
+
+String提供了匹配正则表达式的方法：
+
+```java
+//判断字符串是否匹配正则表达式，匹配则返回true
+public boolean matches(String regex);
+//用于检测字符串是否以指定的前缀开始
+public boolean startsWith(String prefix);
+```
+
+### 书写规则
+
+| [abc] | 只能是a,b或c |\[^abc]|除abc外的任何字符|
+| [a-zA-Z] | a到z，A到Z，包括  | [a-d[m-p]] |a到d或m-p|
+| [a-z&&[def]] | 二者交集 |[a-z&&\[^bc]]|a-z除了bc|
+| [a-z&&\[^m-p]] |a到z除了m到p|·|任何字符(一次一个)|
+|\d| 一个数字\[0-9](使用\时需要转义) |\D|非数字[^0-9]|
+|\s|一个空白字符|\S|非空白字符\[^\s]|
+|\w|[a-zA-Z0-9]|\W|[^\w]一个非单词字符|
+|X?|X一次或0次|X\*|X0次或多次|
+|X+|X一次或多次|X{n}|X正好n次|
+|X{n,}|X至少n次|X{n，m}|X至少n次但不超过m次|
+
+### 分割替换
+
+```java
+//1.按照正则表达式匹配的内容进行替换
+public String replaceAll(String regex, String newStr);
+//2.按照正则表达式匹配的内容进行分割字符串，返回一个字符串数组
+public String[] split(String regex);
+```
+
+### 爬取信息
+
+&emsp;&emsp;1.定义爬取规则；
+
+&emsp;&emsp;2.将正则表达式封装成一个Pattern对象:
+
+```java
+Pattern.compile(regex);
+```
+
+&emsp;&emsp;3.通过pattren对象去获取查找内容的匹配对象：
+
+```java
+Matcher matcher = pattern.matcher(data);
+```
+
+&emsp;&emsp;4.定义while循环开始爬取信息：
+
+```java
+while(matcher.find()){
+    String str = matcher.group();
+    System.out.println(str);
+}
+```
+
+## 异常
+
+&emsp;&emsp;error：系统级别错误，严重问题。
+
+&emsp;&emsp;Exception：异常，程序出现的问题。
+
+&emsp;&emsp;RuntimeException：运行时异常。
+
+&emsp;&emsp;其他异常：例如：编译时异常(编译阶段就会出现错误提示)。
+
+```mermaid2
+graph TB
+A(Java.lang.Throwable) --> B(error)
+A --> C(Exception)
+C --> D(RuntimeException)
+C --> E(其他异常)
+```
+
+### 自定义异常
+
+&emsp;&emsp;throw：抛出一个异常对象，用在方法内。
+
+&emsp;&emsp;throws：抛出方法内部异常，用在方法上。
+
+#### 运行时异常
+
+&emsp;&emsp;定义一个异常类继承 RuntimeException ，重写构造器，通过 “ throw new 异常类(xxx) ” 来创建异常对象并抛出。
+
+#### 编译时异常
+
+&emsp;&emsp;定义一个异常类继承Exception，，重写构造器，通过 “ throw new 异常类(xxx) ” 来创建异常对象并抛出。
+
+```java
+try{
+    //在try中抓住异常。
+}catch(异常类 对象){
+    //若有异常则跳入catch中执行
+    对象.printStackTrace();
+}
+```
+
+### 异常的处理
+
+&emsp;&emsp;1.捕获异常，记录异常并响应合适信息给用户。
+
+&emsp;&emsp;2.捕获异常，尝试修复。
+
+## 集合进阶
+
+未完待续...（2023年11月04日）
