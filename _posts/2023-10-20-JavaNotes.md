@@ -551,4 +551,112 @@ try{
 
 ## 集合进阶
 
-未完待续...（2023年11月04日）
+&emsp;&emsp;集合被分为单列集合和双列集合两种。单列集合：Collection(每个元素只包含一个值)；双列集合：Map(每个元素包含两个值，形成键值对)。
+
+### Collection集合
+
+```mermaid2
+graph TB
+A[Collection] --> B[List]
+A --> C[Set]
+B --> D(ArrayList)
+B --> E(LinkedList)
+C --> F(HashSet)
+C --> G(TreeSet)
+F --> H(LinkedHashSet)
+```
+ps:方角都是接口，圆角都是实现类
+
+#### Collection集合特点
+
+**List集合：**添加的元素是有序、可重复、有索引的。
+
+**Set系列集合：**添加的元素是无序、不可重复、无索引的。其中LinkedHashSet添加的元素是有序的。TreeSet添加的元素按照大小默认升序排序。
+
+#### Collection常用方法
+
+```java
+//1.添加元素，添加成功返回true
+public boolean add(E e);
+//2.清空集合元素
+public void clear();
+//3.判断集合元素是否为空,若空，则返回true
+public boolean isEmpty();
+//4.获取集合的大小
+public int size();
+//5.判断集合中是否包含某元素
+public boolean contains(Object obj);
+//6.删除某元素，若有多个，默认删除第一个。删除成功返回true
+public boolean remove(Object obj);
+//7.把集合转为数组
+public Object[] toArray();
+```
+
+#### Collection遍历方法
+
+1.迭代器：用来遍历集合的专用方式。(数组没有)
+
+&emsp;&emsp;Java中迭代器的代表为:Iterator；
+
+&emsp;&emsp;Collection集合获取迭代器的方法：**Iterator\<E> iterator();** 返回集合中的迭代器对象，该迭代器对象默认指向当前集合的第一个元素。
+
+&emsp;&emsp;Iterator中常用方法：
+
+```java
+//1.询问当前位置是否有元素存在，若存在则返回true
+boolean hasNext();
+//2.获取当前位置的元素，并同时将迭代器对象指向下一元素
+E next();
+```
+
+2.增强for循环:（集合数组都可以）
+
+```java
+for(元素的数据类型名 变量名:数组或集合){
+    //具体操作
+}
+//注：增强for循环本质就是迭代器的简化写法
+```
+
+3.Lambda表达式遍历集合：
+
+```java
+//使用方法
+default void forEach(consumer < ? super T> action);//结合Lambda遍历集合
+//c.forEach(System.out::println);
+```
+
+### List集合
+
+```java
+//特有方法：
+//1.1.在某个索引位置插入元素
+public void add(int index, E element);
+//1.2.根据索引删除元素，并返回被删除的元素
+public E remove(int index);
+//1.3.返回集合中指定位置的元素
+public E get(int index);
+//1.4.修改索引位置处的元素，修改成功后，会返回原来的数据
+public E set(int index, E element);
+
+//遍历方式：未完待续
+//2.1.for循环
+//2.2.迭代器
+//2.3.增强for循环
+//2.4.Lambda表达式
+
+//LinkedList集合新增的首尾操作的特有方法
+//3.1.新增头元素节点
+public void addFirst(E e);
+//3.2.新增尾元素节点
+public void addLast(E e);
+//3.3.获得头节点元素
+public E getFirst();
+//3.4.获得尾节点元素
+public E getLast();
+//3.5.删除并返回第一个节点元素
+public E removeFirst();
+//3.6.删除并返回最后一个节点元素
+public E removeLast();
+```
+
