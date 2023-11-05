@@ -553,7 +553,7 @@ try{
 
 &emsp;&emsp;集合被分为单列集合和双列集合两种。单列集合：Collection(每个元素只包含一个值)；双列集合：Map(每个元素包含两个值，形成键值对)。
 
-### Collection集合
+### Collection集合(单列集合)
 
 ```mermaid2
 graph TB
@@ -567,13 +567,13 @@ F --> H(LinkedHashSet)
 ```
 ps:方角都是接口，圆角都是实现类
 
-#### Collection集合特点
+**1.Collection集合特点**
 
-**List集合：**添加的元素是有序、可重复、有索引的。
+&emsp;&emsp;**List集合：**添加的元素是有序、可重复、有索引的。
 
-**Set系列集合：**添加的元素是无序、不可重复、无索引的。其中LinkedHashSet添加的元素是有序的。TreeSet添加的元素按照大小默认升序排序。
+&emsp;&emsp;**Set系列集合：**添加的元素是无序、不可重复、无索引的。其中LinkedHashSet添加的元素是有序的。TreeSet添加的元素按照大小默认升序排序。
 
-#### Collection常用方法
+**2.Collection常用方法**
 
 ```java
 //1.添加元素，添加成功返回true
@@ -592,9 +592,9 @@ public boolean remove(Object obj);
 public Object[] toArray();
 ```
 
-#### Collection遍历方法
+**3.Collection遍历方法**
 
-1.迭代器：用来遍历集合的专用方式。(数组没有)
+&emsp;**3.1.迭代器：**用来遍历集合的专用方式。(数组没有)
 
 &emsp;&emsp;Java中迭代器的代表为:Iterator；
 
@@ -609,7 +609,7 @@ boolean hasNext();
 E next();
 ```
 
-2.增强for循环:（集合数组都可以）
+&emsp;**3.2.增强for循环**:（集合数组都可以）
 
 ```java
 for(元素的数据类型名 变量名:数组或集合){
@@ -618,7 +618,7 @@ for(元素的数据类型名 变量名:数组或集合){
 //注：增强for循环本质就是迭代器的简化写法
 ```
 
-3.Lambda表达式遍历集合：
+&emsp;**3.3.Lambda表达式遍历集合**：
 
 ```java
 //使用方法
@@ -626,7 +626,9 @@ default void forEach(consumer < ? super T> action);//结合Lambda遍历集合
 //c.forEach(System.out::println);
 ```
 
-### List集合
+#### List集合
+
+&emsp;&emsp;插入的数据是有序，可重复，有索引的。
 
 ```java
 //特有方法：
@@ -660,3 +662,77 @@ public E removeFirst();
 public E removeLast();
 ```
 
+#### Set集合
+
+&emsp;&emsp;插入的数据是无序，不重复，无索引的。
+
+注意：`LinkedHashSet`：插入的数据是有序的；`TreeSet`：默认对存入的数据升序排序；相比于Collection集合的常用功能，几乎没有新增常用功能。
+
+**1.HashSet集合的底层原理**
+
+&emsp;&emsp;**1.1.哈希值**：本质是一个`int类型`的数值，Java中每一个对象都有一个哈希值。Java中的对象都可以调用 `Object类 `提供的`hashCode()`方法，并返回对象自己的哈希值。
+
+```java
+public int hashCode();
+```
+
+&emsp;&emsp;**1.2.特点**：同一对象多次调用`hashCode()`方法返回的哈希值是相同的；不同对象它们的哈希值一般不相同，但也有可能会相同(`int类型`数据有限，因此会发生`哈希碰撞`)。
+
+&emsp;&emsp;**1.3.底层原理**：
+
+$$
+基于哈希表实现 =  
+\begin{cases}
+ JDK8之前:哈希表 = 数组 + 链表  \\
+ JDK8之后:哈希表 = 数组 + 链表 + 红黑树
+ \end{cases}
+$$
+
+**注意**：`哈希表`是一种增删改查数据性能都较好的`数据结构`；如果`链表`的长度 **大于** 8 将会转为`红黑树`；**红黑树**：自动平衡的二叉排序树。
+
+&emsp;&emsp;**1.4.HashSet的去重复机制**：`hashSet集合`默认不能对**内容一样**的两个**不同对象**去重。若想实现不同对象的去重，则需要重写`hashCode()`方法和`equals()`方法。
+
+**2.LinkedHashSet底层原理**
+
+&emsp;&emsp;同样基于`哈希表`，但其每个元素都有额外的**双链表的机制**，双链表记录了它前后元素的位置。
+
+**3.TreeSet集合**
+
+&emsp;&emsp;**3.1.**插入的数据不能重复、且无索引、但是会被自动排序(基于红黑树实现)。
+
+&emsp;&emsp;**3.2.**对于**自定义类型**的对象，TreeSet默认**无法排序**，需要**自定义排序规则**。
+
+&emsp;&emsp;**3.3.自定规则**：①实现`Comparable接口`，重写`CompareTo方法`来指定比较规则；②通过调用**TreeSet集合有参构造器**，可以设置`Comparator对象`。
+
+```java
+public TreeSet(Comparator <? super E> comparator);
+```
+
+#### 集合的并发修改异常
+
+&emsp;&emsp;使用迭代器自己的方法去修改数据；尤其是`i--`；
+
+emmmmm，标记，记不清楚了。2023年1105。
+
+#### Collection的其他相关知识
+
+&emsp;&emsp;**1.可变参数**：一种特殊类型的形参。定义在构造器、方法的形参列表内。**格式**：`数据类型...参数名称;`。**好处**：常用来灵活的接收数据。**特点**：可以不传数据给它，可以**传一个**或同时**传多个数据**，也可以**传一个数组**给它。
+
+**注意**：一个形参列表中只能有一个可变参数，可变参数必须放在形象列表最后边。
+
+&emsp;&emsp;**2.Collections工具类**：用来操作集合的工具类。
+
+```java
+//2.1.给集合批量添加元素
+public static <T> boolean addAll(Collection<? super T> c, T...elements);
+//2.2.打乱List集合中的元素顺序
+public static void shuffle(List<?> list);
+//2.3.对List集合中的元素进行升序排序
+public static <T> void sort(List<T> lsit);
+//2.4.对List集合中元素按照比较器对象指定的规则进行排序
+publci static <T> void sort(List<T> list, Comparator<? super T> c);
+```
+
+### MAP集合(双列集合)
+
+emmm,未完待续...；20231105；
