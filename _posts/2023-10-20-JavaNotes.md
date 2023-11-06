@@ -514,7 +514,7 @@ while(matcher.find()){
 
 ```mermaid2
 graph TB
-A(Java.lang.Throwable) --> B(error)
+A(Java.lang.Throwable ) --> B(error)
 A --> C(Exception)
 C --> D(RuntimeException)
 C --> E(其他异常)
@@ -557,13 +557,13 @@ try{
 
 ```mermaid2
 graph TB
-A[Collection] --> B[List]
-A --> C[Set]
-B --> D(ArrayList)
-B --> E(LinkedList)
-C --> F(HashSet)
-C --> G(TreeSet)
-F --> H(LinkedHashSet)
+A[Collection &#60; E &#62;] --> B[List &#60; E &#62;]
+A --> C[Set &#60; E &#62;]
+B --> D(ArrayList &#60; E &#62;)
+B --> E(LinkedList &#60; E &#62;)
+C --> F(HashSet &#60; E &#62;)
+C --> G(TreeSet &#60; E &#62;)
+F --> H(LinkedHashSet &#60; E &#62;)
 ```
 ps:方角都是接口，圆角都是实现类
 
@@ -735,4 +735,113 @@ publci static <T> void sort(List<T> list, Comparator<? super T> c);
 
 ### MAP集合(双列集合)
 
-emmm,未完待续...；20231105；
+&emsp;&emsp;**1.MAP集合的体系**
+
+```mermaid2
+graph TB
+A[Map &#60; k,v &#62;] --> B(HashMap &#60; k,v &#62;)
+A --> C(...)
+A --> D(TreeMap &#60; k,v &#62;)
+B --> E(LinkedHashMap &#60; k,v &#62;)
+```
+
+&emsp;&emsp;**2.格式**
+
+`{ key1 = value1, key2 = value2, ... };`一次需要存储一对数据做为一个元素。
+
+&emsp;&emsp;**3.**Map集合的每个元素`“key = value”` 称为一个**键值对/键值对对象/一个Entry对象**，Map集合也被称为**键值对集合**。
+
+&emsp;&emsp;**4.**Map集合的所有**键是不允许重复**的，但**值可以重复**，键和值是一一对应的，每个键只能找到自己对应的值。
+
+&emsp;&emsp;**5.Map集合体系的特点**：**注意**：Map系列集合的特点都是由**键决定**，而**值不做要求**。
+
+`HashMap`：插入的数据是**无序**，**不能重复**、**无索引**的。`LinkedHashMap`：插入的数据是**有序**、**不能重复**、**无索引**的。`TreeMap`：插入的数据按照大小默认**升序排序**，**不能重复**，**无索引**的。
+
+​	**6.经典代码**
+
+```java
+Map(String,Integer) map = new HashMap<>();
+```
+
+&emsp;&emsp;**7.常用方法**
+
+```java
+//1.向集合添加数据
+public void put(K key, V value);
+//2.获取集合大小
+public int size();
+//3.清空集合
+public void clear();
+//4.判断集合是否为空
+public boolean isEmpty();
+//5.根据键获取对应值
+public V get(Object key);
+//6.根据键删除整个元素,并返回对应的值
+public V remove(Object key);
+//7.判断集合是否包含某个键
+public boolean containsKey(Object key);
+//8.判断是否包含某个值
+public boolean containsValue(Object value);
+//9.获取Map集合的全部键
+public Set<k> keySet();
+//10.获取Map集合的全部值
+public Collection<v> values();
+```
+
+&emsp;&emsp;**8.集合的遍历方式**
+
+**8.1键找值**：先获取Map集合的全部键，再通过遍历键来找值。
+
+```java
+public Set<k> keySet();
+public V get(Object value);
+```
+
+**8.2键值对**：把"键值对"看作一个整体进行遍历。
+
+&emsp;&emsp;①调用Map集合提供的`entrySet`方法，把Map集合转换成键值对类型的Set集合。
+
+```java
+Set<Map.Entry<k,v>> entrySet();
+```
+
+&emsp;&emsp;②使用`增强for循环`来进行遍历
+
+```java
+K getKey();//获取键
+V getValue();//获取值
+```
+
+**8.3Lambda表达式**(JDK1.8之后新增)
+
+&emsp;&emsp;需要和以下方法结合使用:
+
+```java
+default void forEach(BiConsumer<? super K, ? super V> action)//结合Lambda遍历Map
+/*
+例如：
+map.forEach((k,v)->{
+	System.out.println(k+"--->"+v);
+})
+*/
+```
+
+**9.HashMap集合的底层原理和应用场景**
+
+&emsp;&emsp;`HashMap`和`HashSet`的底层原理相同，都是基于`哈希表`实现的。
+
+&emsp;&emsp;**实际上：**Set系列集合的底层就是基于Map实现的，只是Set集合中的元素只要键数据，不要值数据。
+
+&emsp;&emsp;**链表长度超过 8 且数组长度大于等于 64 ，底层自动转换为红黑树。**
+
+&emsp;&emsp;`HashMap`的键依赖`HashCode()`和`equals()`保证**键的唯一性**。
+
+&emsp;&emsp;**集合的嵌套**：集合中的元素又是一个集合。
+
+
+
+
+
+
+
+emmmmm,未完待续。最后一次更新：20231106
