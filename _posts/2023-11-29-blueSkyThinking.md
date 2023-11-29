@@ -1,7 +1,7 @@
 ---
 layout: post
-title: '工作和生活中常见的缩写'
-date: 2023-11-14
+title: '零件组装汽车'
+date: 2023-11-29
 author: Liyang
 cover: 'https://images.unsplash.com/photo-1653629154302-8687b83825e2'
 cover_author: 'rogov'

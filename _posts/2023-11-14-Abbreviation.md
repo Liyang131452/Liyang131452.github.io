@@ -9,6 +9,7 @@ cover_author_link: 'https://unsplash.com/@rogovca'
 tags: 
 - Wrok 
 - Abbreviation
+- Car
 ---
 
 &emsp;&emsp;都是自己在日常工作和生活中自己总结的常见缩写，不一定对，如果有不准确或者错误的，请大家批评指正。邮箱：bryceyangli@gmail.com
