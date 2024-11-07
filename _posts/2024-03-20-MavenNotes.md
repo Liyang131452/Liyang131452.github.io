@@ -70,9 +70,9 @@ https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip
 
 ​	①进入IDEA如下图界面（如果打开默认是项目界面，只要关闭项目（close project）即可），选择**Customize的All settings**，选择Build设置项中的Maven，对Maven home path、User settings file、local repository进行设置，然后点击Apply应用即可。
 
-<img src=".\articleImgs\mavenNotes\1-4-1.png" alt="image-20240324144210284" style="zoom:67%;" />
+<img src="./articleImgs/mavenNotes/1-4-1.png" alt="image-20240324144210284" style="zoom:67%;" />
 
-<img src=".\articleImgs\mavenNotes\1-4-2.png" alt="image-20240324144407957" style="zoom:67%;" />
+<img src="/articleImgs/mavenNotes/1-4-2.png" alt="image-20240324144407957" style="zoom:67%;" />
 
 #### 1.5.仓库
 
@@ -677,7 +677,7 @@ mvn 指令 -p skipTests
 
 #### 11.2.IDEA开发工具界面操作跳过测试
 
-<img src=".\articleImgs\mavenNotes\11-2-1.png" alt="image-20240325000645318" style="zoom:67%;" />
+<img src="./articleImgs/mavenNotes/11-2-1.png" alt="image-20240325000645318" style="zoom:67%;" />
 
 #### 11.3.使用配置跳过测试
 
