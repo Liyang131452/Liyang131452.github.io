@@ -23,30 +23,6 @@ E-mail : bryceyangli@gmail.com
 
 Thanks.
 
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-	<meta charset="UTF-8">
-	<meta name = "viewport" content = "width = device-width,initial-scale =1.0">
-	<title>今日算法题目抽取</title>
-	<style>
-	    body { font-family:Arial, sans-serif;}
-	</style>
-</head>
-<body>
-	<div>
-	<p>题目：<span id = "randomNumber">0</span></p>
-	<input type="button" id ="generate" value="生成随机数"
-	</div>
-	<script>
-	document.getElementById('generate').onclick=function(){
-	    var randomNumber = Math.floor(Math.random()*65535);
-	    document.getElementById('randomNumber').innerText = randomNumber;
-	}
-	</script>
-</body>
-</html>
-
 **Contents:**
 
 
